@@ -6,8 +6,10 @@ pipeline {
   stages {
     stage ('Build') {
       steps {
+        sh """
         git config --global user.email "thermaleagle@gmail.com"
         git config --global user.name "Thermal Eagle"
+        """
         sh 'mvn release:clean release:prepare release:perform'
       }
     }
