@@ -32,15 +32,15 @@
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->
 		<repository>
-			<id>localRelease</id>
+			<id>Release</id>
 			<name>RepositoryProxyRel</name>
-			<url>https://repository.apache.org/content/groups/public/</url>
+			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
-			<id>localSnapshot</id>
+			<id>Snapshot</id>
 			<name>RepositoryProxySnap</name>
-			<url>http://localhost:8081/repository/maven-snapshots/</url>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
