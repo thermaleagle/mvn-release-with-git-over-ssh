@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>mvn-release-with-git-over-ssh</groupId>
+	<groupId>com.github.thermaleagle</groupId>
 	<artifactId>mvn-release-with-git-over-ssh</artifactId>
 	<version>0.0.9-SNAPSHOT</version>
 	
@@ -34,7 +34,7 @@
 		<repository>
 			<id>localRelease</id>
 			<name>RepositoryProxyRel</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
+			<url>https://repository.apache.org/content/groups/public/</url>
 		</repository>
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
