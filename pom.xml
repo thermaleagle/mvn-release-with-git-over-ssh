@@ -19,7 +19,10 @@
 		<url>https://github.com/thermaleagle/mvn-release-with-git-over-ssh</url>
 	</scm>
 	<developers>
-		<developer>thermaleagle@gmail.com</developer>
+		<developer>
+			<name>Thermal Eagle</name>
+			<email>thermaleagle@gmail.com</email>
+		</developer>
 	</developers>
 	<build>
 		<plugins>
