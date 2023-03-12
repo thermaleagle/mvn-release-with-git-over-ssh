@@ -17,3 +17,6 @@ hs_err_pid*
 .settings
 .settings/*
 # end #
+.gitsecret/keys/random_seed
+!*.secret
+mysecret.txt
