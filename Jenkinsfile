@@ -12,7 +12,7 @@ pipeline {
         """
         configFileProvider(
           [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-            sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform -Dgpg.executable=${GPGPATH}'
+            sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform -Dgpg.executable=${GPGPATH} -Drelease.arguments="-Dgpg.executable=${GPGPATH}"'
           }
       }
     }
