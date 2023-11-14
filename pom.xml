@@ -12,7 +12,7 @@
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-    	<gpg.keyname>thermaleagle@gmail.com</gpg.keyname>
+    	        <gpg.keyname>thermaleagle@gmail.com</gpg.keyname>
 	</properties>
 
 	<scm>
@@ -50,6 +50,9 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
+						<configuration>
+						  	<executable>${gpg.executable}</executable>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
