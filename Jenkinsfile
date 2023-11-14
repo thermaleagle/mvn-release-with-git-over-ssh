@@ -9,7 +9,6 @@ pipeline {
         sh """
         git config --global user.email "thermaleagle@gmail.com"
         git config --global user.name "Thermal Eagle"
-        echo ${PATH}
         """
         configFileProvider(
           [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
