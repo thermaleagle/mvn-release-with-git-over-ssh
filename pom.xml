@@ -18,7 +18,7 @@
 		<!-- Add a unique identifier for rebuilds using the timestamp -->
         <rebuild.identifier>${maven.build.timestamp}</rebuild.identifier>
 		<!-- Ensure that the timestamp is a number in the specified format - so that each rebuild of the same commit gets a unique version differentiated by the timestamp -->
-		<maven.build.timestamp.format>yyyy-MM-dd.HH-mm-ss-SSS</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yyyy-MM-dd.HH-mm-ss.SSS</maven.build.timestamp.format>
 	</properties>
 
 	<scm>
