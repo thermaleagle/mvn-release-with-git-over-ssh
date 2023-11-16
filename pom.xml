@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.thermaleagle</groupId>
 	<artifactId>mvn-release-with-git-over-ssh</artifactId>
-	<version>0.0.18-SNAPSHOT</version>
+	<version>0.0.18-SNAPSHOT-unknown-2023-11-16T20:22:06Z</version>
 	<name>mvn-release-with-git-over-ssh</name>
 	<description>A sample maven project to demonstrate how to use maven release plugin to release over ssh protocol</description>
 	<url>https://github.com/thermaleagle/mvn-release-with-git-over-ssh</url>
@@ -40,17 +40,27 @@
             </plugin>
             <!-- Maven Git Commit ID Plugin -->
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>4.0.0</version>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>7.0.0</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
                         <goals>
                             <goal>revision</goal>
                         </goals>
+						<phase>initialize</phase>
                     </execution>
                 </executions>
+				<configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                    <commitIdGenerationMode>full</commitIdGenerationMode>
+                </configuration>
             </plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
