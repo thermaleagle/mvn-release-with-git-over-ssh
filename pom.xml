@@ -57,7 +57,7 @@
 				</executions>
 			</plugin>
             <!-- Maven Git Commit ID Plugin -->
-			<!-- target regex: https://regex101.com/r/CQVLZr/1 -->
+			<!-- target regex: https://regex101.com/r/80ZdrV/1 -->
             <plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
