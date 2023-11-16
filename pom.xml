@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.thermaleagle</groupId>
 	<artifactId>mvn-release-with-git-over-ssh</artifactId>
-	<version>0.0.1+git.05a0076-SNAPSHOT</version>
+	<version>0.0.21-SNAPSHOT</version>
 	<name>mvn-release-with-git-over-ssh</name>
 	<description>A sample maven project to demonstrate how to use maven release plugin to release over ssh protocol</description>
 	<url>https://github.com/thermaleagle/mvn-release-with-git-over-ssh</url>
@@ -17,6 +17,8 @@
         <git.commit.id>unknown</git.commit.id>
 		<!-- Add a unique identifier for rebuilds using the timestamp -->
         <rebuild.identifier>${maven.build.timestamp}</rebuild.identifier>
+		<!-- Ensure that the timestamp is a number in the specified format - so that each rebuild of the same commit gets a unique version differentiated by the timestamp -->
+		<maven.build.timestamp.format>yyyyMMddHHmmssSSS</maven.build.timestamp.format>
 	</properties>
 
 	<scm>
