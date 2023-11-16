@@ -7,7 +7,7 @@ Call the below command
 
 mvn org.codehaus.mojo:build-helper-maven-plugin:parse-version pl.project13.maven:git-commit-id-plugin:revision versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+git.\${git.commit.id.abbrev}.\${rebuild.identifier}-SNAPSHOT
 git commit -am "Version updated before release to include git-commit and timestamp"
-release:clean release:prepare release:perform 
+mvn -B release:clean release:prepare release:perform
 
 to change version 
 from say, 0.0.20-SNAPSHOT
