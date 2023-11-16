@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.thermaleagle</groupId>
 	<artifactId>mvn-release-with-git-over-ssh</artifactId>
-	<version>0.0.18-SNAPSHOT-unknown-2023-11-16T20:22:06Z</version>
+	<version>0.0.18-SNAPSHOT</version>
 	<name>mvn-release-with-git-over-ssh</name>
 	<description>A sample maven project to demonstrate how to use maven release plugin to release over ssh protocol</description>
 	<url>https://github.com/thermaleagle/mvn-release-with-git-over-ssh</url>
