@@ -3,10 +3,13 @@
 
 
 
-Call mvn org.codehaus.mojo:build-helper-maven-plugin:parse-version pl.project13.maven:git-commit-id-plugin:revision versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+git.\${git.commit.id.abbrev}-SNAPSHOT
+Call the below command
+
+mvn org.codehaus.mojo:build-helper-maven-plugin:parse-version pl.project13.maven:git-commit-id-plugin:revision versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+git.\${git.commit.id.abbrev}.\${rebuild.identifier}-SNAPSHOT
+
 to change version 
 from say, 0.0.20-SNAPSHOT
-to say, 0.0.20+git.b667be4-SNAPSHOT
+to say, 0.0.20+git.a508066.20231116220943471-SNAPSHOT
 
 
 TODO:
