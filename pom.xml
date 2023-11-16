@@ -12,7 +12,11 @@
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-    	        <gpg.keyname>thermaleagle@gmail.com</gpg.keyname>
+    	<gpg.keyname>thermaleagle@gmail.com</gpg.keyname>
+        <!-- Add a property for the Git commit ID -->
+        <git.commit.id>unknown</git.commit.id>
+		<!-- Add a unique identifier for rebuilds using the timestamp -->
+        <rebuild.identifier>${maven.build.timestamp}</rebuild.identifier>
 	</properties>
 
 	<scm>
@@ -28,6 +32,26 @@
 	</developers>
 	<build>
 		<plugins>
+            <!-- Maven CI Friendly Versions Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.8.1</version>
+            </plugin>
+            <!-- Maven Git Commit ID Plugin -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.0.0</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
