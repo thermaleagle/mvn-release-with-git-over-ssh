@@ -5,11 +5,11 @@
 
 Call the below command
 
-mvn -B release:clean org.codehaus.mojo:build-helper-maven-plugin:parse-version pl.project13.maven:git-commit-id-plugin:revision release:prepare release:perform -DreleaseVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+git.\${git.commit.id.abbrev}.\${rebuild.identifier} -DdevelopmentVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}-SNAPSHOT
+mvn -B release:clean org.codehaus.mojo:build-helper-maven-plugin:parse-version pl.project13.maven:git-commit-id-plugin:revision release:prepare release:perform -DreleaseVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+\${rebuild.identifier}.git.\${git.commit.id.abbrev} -DdevelopmentVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}-SNAPSHOT
 
 to release the version 
 from say, 0.0.20-SNAPSHOT
-as 0.0.20+git.a508066.2023-11-16.22-09-43.471
+as 0.0.20+2023-11-16.22-09-43.471.git.a508066
 and set the version back 
 to say, 0.0.20-SNAPSHOT
 
