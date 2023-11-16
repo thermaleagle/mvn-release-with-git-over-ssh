@@ -24,3 +24,4 @@ TODO:
 1. try to achieve the effect of the above command without defining it in pom.xml
 2. if 1 is not possible, try to add the plugins to a bom and use the bom as parent to achieve the same
 3. Remove the need to ignore local modifications within the pom.xml during release:prepare
+4. Make sure the tag added matches (scm.tagNameFormat) matches the version number released including the above build metadata
