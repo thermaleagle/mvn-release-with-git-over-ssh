@@ -18,7 +18,7 @@ pipeline {
 
             withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
               sh '''
-                  export GPG_TTY=$(tty)
+                  export GPG_TTY=true
                   mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform \
                       -Dgpg.executable=${GPGPATH}/gpg \
                       -Dgpg.useagent=true \
