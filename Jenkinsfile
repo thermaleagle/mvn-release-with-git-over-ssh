@@ -3,6 +3,9 @@ pipeline {
   tools {
     maven 'maven' 
   }
+  environment {
+      PATH = "${env.PATH}:${GPGPATH}"
+  }
   stages {
     stage ('Build') {
       steps {
