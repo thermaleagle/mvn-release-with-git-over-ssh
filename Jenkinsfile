@@ -20,12 +20,12 @@ pipeline {
               sh '''
                   export GPG_TTY=$(tty)
                   mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform \
-                      -Dgpg.executable=${GPGPATH} \
+                      -Dgpg.executable=${GPGPATH}/gpg \
                       -Dgpg.useagent=true \
                       -Dgpg.batch=true \
                       -Dgpg.passphrase=${GPG_PASSPHRASE} \
                       -Dgpg.pinentry-mode=loopback \
-                      -Drelease.arguments="-Dgpg.executable=${GPGPATH} -Dgpg.useagent=true -Dgpg.batch=true -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.pinentry-mode=loopback"
+                      -Drelease.arguments="-Dgpg.executable=${GPGPATH}/gpg -Dgpg.useagent=true -Dgpg.batch=true -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.pinentry-mode=loopback"
               '''
             }
         }
