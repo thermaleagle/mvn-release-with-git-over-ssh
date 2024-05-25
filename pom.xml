@@ -19,6 +19,8 @@
         <rebuild.identifier>${maven.build.timestamp}</rebuild.identifier>
 		<!-- Ensure that the timestamp is a number in the specified format - so that each rebuild of the same commit gets a unique version differentiated by the timestamp -->
 		<maven.build.timestamp.format>yyyy-MM-dd.HH-mm-ss.SSS</maven.build.timestamp.format>
+        <gpg.executable>gpg</gpg.executable>
+        <gpg.useagent>true</gpg.useagent>
 	</properties>
 
 	<scm>
@@ -99,6 +101,10 @@
 						</goals>
 						<configuration>
 						  	<executable>${gpg.executable}</executable>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
 						</configuration>
 					</execution>
 				</executions>
