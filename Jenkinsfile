@@ -12,6 +12,11 @@ pipeline {
         """
         configFileProvider(
           [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+            sh 'ls -l /opt/homebrew/Cellar/gnupg/2.4.3/bin/gpg'
+            sh '/opt/homebrew/Cellar/gnupg/2.4.3/bin/gpg --version'
+            sh 'echo $PATH'
+            sh 'which gpg'
+            sh '${GPGPATH} --version'
             sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform -Dgpg.executable=${GPGPATH} -Drelease.arguments="-Dgpg.executable=${GPGPATH}"'
           }
       }
