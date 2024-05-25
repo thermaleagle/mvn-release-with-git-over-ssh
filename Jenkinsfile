@@ -16,7 +16,7 @@ pipeline {
         configFileProvider(
           [configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
             sh 'ls -l ${GPGPATH}'
-            sh '${GPGPATH} --version'
+            sh '${GPGPATH}/gpg --version'
             sh 'echo $PATH'
             sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform'
           }
