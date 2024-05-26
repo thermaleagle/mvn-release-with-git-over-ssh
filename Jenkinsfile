@@ -17,6 +17,8 @@ pipeline {
                     // Write the GPG key file from Jenkins credentials
                     writeFile file: '/var/jenkins_home/.gnupg/private-key.asc', text: GPG_SECRET_KEY
 
+                    sh 'chmod 600 /var/jenkins_home/.gnupg/private-key.asc'
+
                     // Print the contents of the key file for debugging
                     sh 'cat /var/jenkins_home/.gnupg/private-key.asc'
               
