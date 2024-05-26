@@ -13,20 +13,22 @@ pipeline {
   stages {
     stage('Setup SSH') {
         steps {
-            script {
-                // Create the SSH directory
-                sh 'mkdir -p /var/jenkins_home/.ssh'
+            withCredentials([sshUserPrivateKey(credentialsId: 'git-ssh-key', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+                script {
+                    // Create the SSH directory
+                    sh 'mkdir -p /var/jenkins_home/.ssh'
+                    
+                    // Add the known hosts to avoid host key verification failures
+                    withCredentials([file(variable: 'KNOWN_HOSTS_FILE', credentialsId: 'known-hosts')]) {
+                        sh 'cat $KNOWN_HOSTS_FILE > /var/jenkins_home/.ssh/known_hosts'
+                    }
 
-                // Write the SSH private key
-                writeFile file: '/var/jenkins_home/.ssh/id_rsa', text: GIT_SSH_KEY
-                sh 'chmod 600 /var/jenkins_home/.ssh/id_rsa'
-
-                // Write the known hosts file
-                writeFile file: '/var/jenkins_home/.ssh/known_hosts', text: KNOWN_HOSTS
-                sh 'chmod 644 /var/jenkins_home/.ssh/known_hosts'
-
-                // Ensure SSH agent is running and add the key
-                sh 'eval $(ssh-agent -s) && ssh-add /var/jenkins_home/.ssh/id_rsa'
+                    // Start SSH agent and add the SSH key
+                    sh '''
+                        eval $(ssh-agent -s)
+                        ssh-add $SSH_KEY_FILE
+                    '''
+                }
             }
         }
     }
@@ -55,25 +57,27 @@ pipeline {
     }
     stage ('Build') {
       steps {
-        sh """
-        git config --global user.email "thermaleagle@gmail.com"
-        git config --global user.name "Thermal Eagle"
-        """
-        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-            sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform'
-
-            // withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
-            //   sh '''
-            //       export GPG_TTY=true
-            //       mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform \
-            //           -Dgpg.executable=${GPGPATH}/gpg \
-            //           -Dgpg.useagent=true \
-            //           -Dgpg.batch=true \
-            //           -Dgpg.passphrase=${GPG_PASSPHRASE} \
-            //           -Dgpg.pinentry-mode=loopback \
-            //           -Drelease.arguments="-Dgpg.executable=${GPGPATH}/gpg -Dgpg.useagent=true -Dgpg.batch=true -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.pinentry-mode=loopback"
-            //   '''
-            // }
+        withEnv(["GPG_PASSPHRASE=${GPG_PASSPHRASE}"]) {
+          sh """
+          git config --global user.email "thermaleagle@gmail.com"
+          git config --global user.name "Thermal Eagle"
+          """
+          configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+              sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform'
+  
+              // withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
+              //   sh '''
+              //       export GPG_TTY=true
+              //       mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform \
+              //           -Dgpg.executable=${GPGPATH}/gpg \
+              //           -Dgpg.useagent=true \
+              //           -Dgpg.batch=true \
+              //           -Dgpg.passphrase=${GPG_PASSPHRASE} \
+              //           -Dgpg.pinentry-mode=loopback \
+              //           -Drelease.arguments="-Dgpg.executable=${GPGPATH}/gpg -Dgpg.useagent=true -Dgpg.batch=true -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.pinentry-mode=loopback"
+              //   '''
+              // }
+          }
         }
       }
     }
