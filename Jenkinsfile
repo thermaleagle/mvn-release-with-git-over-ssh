@@ -23,7 +23,7 @@ pipeline {
                     sh 'echo $GPG_KEY_FILE'
 
                     // Import the GPG key
-                    sh 'gpg --import $GPG_KEY_FILE'
+                    sh 'gpg --batch --import $GPG_KEY_FILE'
                     
                     // List the imported keys to verify
                     sh 'gpg --list-secret-keys'
