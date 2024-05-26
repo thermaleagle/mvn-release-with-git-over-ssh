@@ -19,6 +19,8 @@ pipeline {
 
                     sh 'chmod 600 /var/jenkins_home/.gnupg/private-key.asc'
 
+                    sh 'ls -lrt /var/jenkins_home/.gnupg/private-key.asc'
+
                     // Print the contents of the key file for debugging
                     sh 'cat /var/jenkins_home/.gnupg/private-key.asc'
               
