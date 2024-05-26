@@ -69,19 +69,6 @@ pipeline {
           """
           configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
               sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform'
-  
-              // withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
-              //   sh '''
-              //       export GPG_TTY=true
-              //       mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform \
-              //           -Dgpg.executable=${GPGPATH}/gpg \
-              //           -Dgpg.useagent=true \
-              //           -Dgpg.batch=true \
-              //           -Dgpg.passphrase=${GPG_PASSPHRASE} \
-              //           -Dgpg.pinentry-mode=loopback \
-              //           -Drelease.arguments="-Dgpg.executable=${GPGPATH}/gpg -Dgpg.useagent=true -Dgpg.batch=true -Dgpg.passphrase=${GPG_PASSPHRASE} -Dgpg.pinentry-mode=loopback"
-              //   '''
-              // }
           }
         }
       }
@@ -97,7 +84,7 @@ pipeline {
         steps {
             script {
                 // Remove the temporary files
-                //sh 'rm -f /var/jenkins_home/.ssh/id_rsa'
+                sh 'rm -f /var/jenkins_home/.ssh/id_ed25519'
                 sh 'rm -f /var/jenkins_home/.gnupg/private-key.asc'
             }
         }
