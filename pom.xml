@@ -102,6 +102,7 @@
 						<configuration>
 						  	<executable>${gpg.executable}</executable>
 							<gpgArguments>
+								<arg>--batch</arg>
 								<arg>--pinentry-mode</arg>
 								<arg>loopback</arg>
 							</gpgArguments>
