@@ -4,11 +4,32 @@ pipeline {
     maven 'maven' 
   }
   environment {
-      PATH = "${env.PATH}:${GPGPATH}"
+      PATH = "${env.PATH}:${GPGPATH}"        
+      GIT_SSH_KEY = credentials('git-ssh-key') // Use the correct credentials ID for the SSH key
+      KNOWN_HOSTS = credentials('known-hosts') // Use the ID for the known hosts
       GPG_SECRET_KEY = credentials('gpg-secret-key') // Use the ID of your stored GPG key
       GPG_PASSPHRASE = credentials('gpg-passphrase') // Use the ID for the GPG passphrase
   }
   stages {
+    stage('Setup SSH') {
+        steps {
+            script {
+                // Create the SSH directory
+                sh 'mkdir -p /var/jenkins_home/.ssh'
+
+                // Write the SSH private key
+                writeFile file: '/var/jenkins_home/.ssh/id_rsa', text: GIT_SSH_KEY
+                sh 'chmod 600 /var/jenkins_home/.ssh/id_rsa'
+
+                // Write the known hosts file
+                writeFile file: '/var/jenkins_home/.ssh/known_hosts', text: KNOWN_HOSTS
+                sh 'chmod 644 /var/jenkins_home/.ssh/known_hosts'
+
+                // Ensure SSH agent is running and add the key
+                sh 'eval $(ssh-agent -s) && ssh-add /var/jenkins_home/.ssh/id_rsa'
+            }
+        }
+    }
     stage('Setup GPG') {
         steps {
             script {
