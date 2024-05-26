@@ -5,8 +5,19 @@ pipeline {
   }
   environment {
       PATH = "${env.PATH}:${GPGPATH}"
+      GPG_SECRET_KEY = credentials('gpg-secret-key') // Use the ID of your stored GPG key
   }
   stages {
+    stage('Setup GPG') {
+        steps {
+            script {
+                // Create the GPG directory and import the key
+                sh 'mkdir -p /var/jenkins_home/.gnupg'
+                writeFile file: '/var/jenkins_home/.gnupg/private-key.asc', text: GPG_SECRET_KEY
+                sh 'gpg --import /var/jenkins_home/.gnupg/private-key.asc'
+            }
+        }
+    }
     stage ('Build') {
       steps {
         sh """
