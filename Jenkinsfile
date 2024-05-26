@@ -11,20 +11,27 @@ pipeline {
   stages {
     stage('Setup SSH') {
         steps {
-            withCredentials([sshUserPrivateKey(credentialsId: 'git-ssh-key', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+            withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY_FILE')]) {
                 script {
                     // Create the SSH directory
                     sh 'mkdir -p /var/jenkins_home/.ssh'
                     
+                    // Copy the SSH key to the .ssh directory
+                    sh 'cp $SSH_KEY_FILE /var/jenkins_home/.ssh/id_ed25519'
+                    
+                    // Set the correct permissions for the SSH key
+                    sh 'chmod 600 /var/jenkins_home/.ssh/id_ed25519'
+
                     // Add the known hosts to avoid host key verification failures
                     withCredentials([file(variable: 'KNOWN_HOSTS_FILE', credentialsId: 'known-hosts')]) {
-                        sh 'cat $KNOWN_HOSTS_FILE > /var/jenkins_home/.ssh/known_hosts'
+                        sh 'cp $KNOWN_HOSTS_FILE /var/jenkins_home/.ssh/known_hosts'
+                        sh 'chmod 644 /var/jenkins_home/.ssh/known_hosts'
                     }
 
                     // Start SSH agent and add the SSH key
                     sh '''
                         eval $(ssh-agent -s)
-                        ssh-add $SSH_KEY_FILE
+                        ssh-add /var/jenkins_home/.ssh/id_ed25519
                     '''
                 }
             }
