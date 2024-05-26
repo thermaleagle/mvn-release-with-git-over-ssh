@@ -92,7 +92,7 @@ pipeline {
         steps {
             script {
                 // Remove the temporary files
-                sh 'rm -f /var/jenkins_home/.ssh/id_rsa'
+                //sh 'rm -f /var/jenkins_home/.ssh/id_rsa'
                 sh 'rm -f /var/jenkins_home/.gnupg/private-key.asc'
             }
         }
