@@ -11,10 +11,17 @@ pipeline {
     stage('Setup GPG') {
         steps {
             script {
-                // Create the GPG directory and import the key
-                sh 'mkdir -p /var/jenkins_home/.gnupg'
-                writeFile file: '/var/jenkins_home/.gnupg/private-key.asc', text: GPG_SECRET_KEY
-                sh 'gpg --import /var/jenkins_home/.gnupg/private-key.asc'
+                    // Create the GPG directory
+                    sh 'mkdir -p /var/jenkins_home/.gnupg'
+                    
+                    // Write the GPG key file from Jenkins credentials
+                    writeFile file: '/var/jenkins_home/.gnupg/private-key.asc', text: GPG_SECRET_KEY
+                    
+                    // Import the GPG key
+                    sh 'gpg --import /var/jenkins_home/.gnupg/private-key.asc'
+                    
+                    // List the imported keys to verify
+                    sh 'gpg --list-secret-keys'
             }
         }
     }
