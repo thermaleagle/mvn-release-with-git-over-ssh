@@ -62,5 +62,12 @@ pipeline {
         }
       }
     }
+    stage('Cleanup') {
+        steps {
+            script {
+                sh 'rm -f /var/jenkins_home/.gnupg/private-key.asc'
+            }
+        }
+    } 
   }
 }
