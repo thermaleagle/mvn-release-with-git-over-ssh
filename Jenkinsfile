@@ -20,7 +20,7 @@ pipeline {
             // Add the known hosts to avoid host key verification failures
             withCredentials([file(variable: 'KNOWN_HOSTS_FILE', credentialsId: 'known_hosts')]) {
                 sh 'cp $KNOWN_HOSTS_FILE ' + Jenkins.instance.rootPath + '/.ssh/known_hosts'
-                sh 'chmod 644 ' + Jenkins.instance.rootPath + '.ssh/known_hosts'
+                sh 'chmod 644 ' + Jenkins.instance.rootPath + '/.ssh/known_hosts'
             }
 
             // Start SSH agent and add the SSH key
