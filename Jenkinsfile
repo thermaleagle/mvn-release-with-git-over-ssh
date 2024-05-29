@@ -10,6 +10,10 @@ pipeline {
           script {
             // Create the SSH directory
             sh 'mkdir -p ' + Jenkins.instance.rootPath + '/.ssh'
+
+            // Make the user under which Jenkins is running, the owner of the .ssh folder with read/write access
+            sh 'sudo chown -R ' + System.getProperty("user.name") + ' ' + Jenkins.instance.rootPath + '/.ssh'
+            sh 'sudo chmod 600 ' + Jenkins.instance.rootPath + '/.ssh'
             
             // Copy the SSH key to the .ssh directory
             sh 'cp $SSH_KEY_FILE ' + Jenkins.instance.rootPath + '/.ssh/id_ed25519'
