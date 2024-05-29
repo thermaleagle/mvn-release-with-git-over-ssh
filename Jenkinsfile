@@ -4,7 +4,6 @@ pipeline {
     maven 'maven' 
   }
   environment {
-      PATH = "${env.PATH}:${GPGPATH}"
       GPG_SECRET_KEY = credentials('gpg-secret-key') // Use the ID of your stored GPG key
       GPG_PASSPHRASE = credentials('gpg-passphrase') // Use the ID for the GPG passphrase
   }
