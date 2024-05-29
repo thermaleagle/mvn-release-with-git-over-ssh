@@ -18,7 +18,7 @@ pipeline {
             sh 'chmod 600 ' + Jenkins.instance.rootPath + '/.ssh/id_ed25519'
 
             // Add the known hosts to avoid host key verification failures
-            withCredentials([file(variable: 'KNOWN_HOSTS_FILE', credentialsId: 'known-hosts')]) {
+            withCredentials([file(variable: 'KNOWN_HOSTS_FILE', credentialsId: 'known_hosts')]) {
                 sh 'cp $KNOWN_HOSTS_FILE ' + Jenkins.instance.rootPath + '/.ssh/known_hosts'
                 sh 'chmod 644 ' + Jenkins.instance.rootPath + '.ssh/known_hosts'
             }
