@@ -9,7 +9,7 @@ pipeline {
         withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY_FILE')]) {
           script {
             // Create the SSH directory
-            sh 'mkdir -p /var/jenkins_home/.ssh'
+            sh 'mkdir -p ' + Jenkins.instance.rootPath + '/.ssh'
             
             // Copy the SSH key to the .ssh directory
             sh 'cp $SSH_KEY_FILE ' + Jenkins.instance.rootPath + '/.ssh/id_ed25519'
