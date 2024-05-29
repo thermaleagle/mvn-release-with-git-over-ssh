@@ -12,7 +12,7 @@ pipeline {
             sh 'mkdir -p ' + Jenkins.instance.rootPath + '/.ssh'
 
             // Make the user under which Jenkins is running, the owner of the .ssh folder with read/write access
-            sh 'chown -R ' + System.getProperty("user.name") + ' ' + Jenkins.instance.rootPath + '/.ssh'
+            //sh 'chown -R ' + System.getProperty("user.name") + ' ' + Jenkins.instance.rootPath + '/.ssh'
             sh 'chmod 700 ' + Jenkins.instance.rootPath + '/.ssh'
             
             // Copy the SSH key to the .ssh directory
