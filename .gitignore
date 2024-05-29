@@ -20,3 +20,6 @@ hs_err_pid*
 .gitsecret/keys/random_seed
 !*.secret
 mysecret.txt
+pubring.kbx
+pubring.kbx~
+trustdb.gpg
