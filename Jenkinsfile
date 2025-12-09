@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-    maven 'auto-install-maven-3.9.11'
+    maven 'maven'
   }
   stages {
     stage('Setup SSH') {
