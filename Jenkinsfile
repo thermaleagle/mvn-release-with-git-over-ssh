@@ -58,7 +58,7 @@ pipeline {
     // }
     stage ('Build') {
       steps {
-        withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
+        //withCredentials([string(credentialsId: 'gpg-passphrase', variable: 'GPG_PASSPHRASE')]) {
           sh """
           git config --global user.email "thermaleagle@gmail.com"
           git config --global user.name "Thermal Eagle"
@@ -66,7 +66,7 @@ pipeline {
           configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
               sh 'mvn -s $MAVEN_SETTINGS release:clean release:prepare release:perform'
           }
-        }
+        //}
       }
     }
     stage ('Deploy') {
